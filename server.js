@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 
 var app = express();
 
-hbs.registerPartials(`${__dirname}/partials`);
+hbs.registerPartials(`${__dirname}/views/partials`);
 app.set('view engine', 'hbs');
 
 app.use((req, res, next) => {
@@ -22,11 +22,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  res.render('maintenance.hbs', {
-    pageTitle: 'We\'ll be right back'
-  });
-});
+// app.use((req, res, next) => {
+//   res.render('maintenance.hbs', {
+//     pageTitle: 'We\'ll be right back'
+//   });
+// });
 
 app.use(express.static(`${__dirname}/public`));
 
@@ -51,6 +51,12 @@ app.get('/about', (req, res) => {
   });
 });
 
+app.get('/projects', (req, res) => {
+  res.render('projects.hbs', {
+    pageTitle: 'Projects'
+  });
+});
+
 app.get('/bad', (req, res) => {
   res.send({
     errorMessage: 'Bad request'
@@ -58,5 +64,5 @@ app.get('/bad', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('Server is up on port 3000');
+  console.log(`Server is up on port ${port}`);
 });
